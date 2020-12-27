@@ -2,11 +2,6 @@ body{
     background: #0c1a29;
 }
 
-nav{
-    background: #120D16;
-
-}
-
 .navbar-brand{
     font-size : 250%;
     color: #999999;
@@ -15,6 +10,8 @@ nav{
     margin-top: 1%;
     margin-bottom: 1%;
 }
-.nav-link{
-    padding-left: 20%;
+
+.games{
+    margin: 5% 30% auto ;
+
 }

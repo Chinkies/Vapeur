@@ -1,7 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Login !{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
 {% block body %}
+    <div class="login row justify-content-around">
+        <form method="" action="">
+            <div class="jumbotron  col-lg-12  bg-dark" >
 
+                <h1>Connecte-toi !</h1>
+
+                <br><div class="form-group">
+                    <label class="control-label" for="username">Nom d'utilisateur: </label>
+                    <input type="text" class="form-control" id="username" name="username" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">Mot de passe: </label>
+                    <input type="password" class="form-control" id="password" name="password" required="required"/>
+
+                </div>
+                <br><a href="index.php"><button class="btn btn-primary btn-lg" name="submit">Se connecter</button></a>
+
+
+            </div>
+        </form>
+        <form method="" action="">
+            <div id="Sub" class="jumbotron col-lg-12 bg-dark" >
+                <p>Pas de compte ?</p>
+                <h1>Inscris-toi !</h1>
+
+
+                <br><div class="form-group">
+                    <label class="control-label" for="username">Nom d'utilisateur: </label>
+                    <input type="text" class="form-control" id="username" name="username" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="email">Adresse Email: </label>
+                    <input type="text" class="form-control" id="email" name="email" required="required"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">Mot de passe: </label>
+                    <input type="password" class="form-control" id="password" name="password" required="required"/>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="password">Confirmez votre Mot de passe: </label>
+                    <input type="password" class="form-control" id="password" name="password" required="required"/>
+
+                </div>
+                <br><a href="index.php"><button class="btn btn-primary btn-lg" name="submit">Se connecter</button></a>
+
+            </div>
+        </form>
+    </div>
 {% endblock %}
