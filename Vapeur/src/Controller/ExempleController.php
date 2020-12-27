@@ -12,7 +12,7 @@ Class ExempleController extends AbstractController
      * @Route("/")
      **/
     public function index() {
-        return $this->render('login.html.twig',
+        return $this->render('profile.html.twig',
             ['title' => 'Vapeur™']);
 
     }
