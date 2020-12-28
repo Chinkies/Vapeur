@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 Class ExempleController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/test")
      **/
     public function index() {
         return $this->render('profile.html.twig',

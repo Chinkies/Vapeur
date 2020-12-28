@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Création d'un post</h1>
+
+    {{ form_start(formPost) }}
+
+    {{ form_row(formPost.title, {'attr': {'placeholder': "Titre du poste"}}) }}
+    {{ form_row(formPost.content, {'attr': {'placeholder': "Contenu du poste"}}) }}
+    {{ form_row(formPost.link, {'attr': {'placeholder': 'Lien'}}) }}
+
+    <button type="submit" class="btn btn-success">
+        {% if mode %}
+            Modifier le post
+        {% else %}
+            Ajouter le post
+        {% endif %}
+    </button>
+    {{ form_end(formPost) }}
+{% endblock %}

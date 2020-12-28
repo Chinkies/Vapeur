@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fil d'actualité{% endblock %}
+
+{% block body %}
+    <section class="post">
+        {% for post in posts %}
+        <post>
+            <h2>{{ post.title }}</h2>
+            <div class="metadata">
+                Ecrit le {{ post.date | date('d/m/y')}} à {{ post.date | date('H:i') }} dans la catégorie Politique
+            </div>
+            <div class="content">
+                <img src="{{ post.link }}" alt="">
+                {{ post.content | raw}}
+                <a href="{{ path('post_show', {'id': post.id}) }}" class="btn btn-primary">Lire la suite</a>
+            </div>
+        </post>
+        {% endfor %}
+    </section>
+{% endblock %}
