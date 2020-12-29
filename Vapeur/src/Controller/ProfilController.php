@@ -29,7 +29,6 @@ class ProfilController extends AbstractController
     public function edit(User $user = null, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $form = $this->createForm(RegistrationType::class, $user);
-        dump($user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())

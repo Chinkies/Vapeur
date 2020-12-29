@@ -13,6 +13,7 @@ use App\Repository\PostRepository;
 use App\Form\PostType;
 use App\Form\CommentType;
 use App\Entity\Comment;
+use App\Entity\User;
 
 class PostController extends AbstractController
 {
@@ -83,7 +84,8 @@ class PostController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $comment->setDate(new \DateTime())
-                    ->setPost($post);
+                    ->setPost($post)
+                    ->setAuthor($this->container->get('security.token_storage')->getToken()->getUser()->getUsername());
 
             $manager->persist($comment);
             $manager->flush();
