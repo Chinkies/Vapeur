@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,13 +21,14 @@ class PostController extends AbstractController
     /**
      * @Route("/post", name="post")
      */
-    public function index(PostRepository $repo)
+    public function index(PostRepository $repoP, UserRepository $repoU)
     {
-        $posts = $repo->findAll();
+        $posts = $repoP->findAll();
+        $users = $repoU->findAll();
 
         return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-            'posts' => $posts
+            'posts' => $posts,
+            'users' => $users
         ]);
     }
 
@@ -56,7 +58,8 @@ class PostController extends AbstractController
         {
             if (!$post->getId())
             {
-                $post->setDate(new \DateTime);
+                $post->setDate(new \DateTime)
+                    ->setUser($this->container->get('security.token_storage')->getToken()->getUser());
             }
             $manager->persist($post);
             $manager->flush();
