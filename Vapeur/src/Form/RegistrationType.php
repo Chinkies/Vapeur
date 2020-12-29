@@ -2,32 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
-use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class PostType extends AbstractType
+class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'title'
-            ])
-            ->add('content')
-            ->add('link')
+            ->add('username')
+            ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            'data_class' => User::class,
         ]);
     }
 }

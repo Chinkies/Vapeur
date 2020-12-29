@@ -6,6 +6,7 @@
     {{ form_start(formPost) }}
 
     {{ form_row(formPost.title, {'attr': {'placeholder': "Titre du poste"}}) }}
+    {{ form_row(formPost.category) }}
     {{ form_row(formPost.content, {'attr': {'placeholder': "Contenu du poste"}}) }}
     {{ form_row(formPost.link, {'attr': {'placeholder': 'Lien'}}) }}
 

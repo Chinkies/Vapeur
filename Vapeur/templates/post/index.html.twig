@@ -8,7 +8,7 @@
         <post>
             <h2>{{ post.title }}</h2>
             <div class="metadata">
-                Ecrit le {{ post.date | date('d/m/y')}} à {{ post.date | date('H:i') }} dans la catégorie Politique
+                Ecrit le {{ post.date | date('d/m/y')}} à {{ post.date | date('H:i') }} dans la catégorie {{ post.category.title }}
             </div>
             <div class="content">
                 <img src="{{ post.link }}" alt="">

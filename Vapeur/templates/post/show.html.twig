@@ -4,11 +4,26 @@
     <post>
         <h2>{{ post.title }}</h2>
         <div class="metadata">
-            Ecrit le {{ post.date | date('d/m/Y') }} à {{ post.date | date('H:i') }} dans la catégorie Politique
+            Ecrit le {{ post.date | date('d/m/Y') }} à {{ post.date | date('H:i') }} dans la catégorie {{ post.category.title }}
         </div>
         <div class="content">
             <img src="{{ post.link }}" alt="">
             {{ post.content | raw }}
         </div>
     </post>
+
+    <section id="commentaires">
+        {% for comment in post.comments %}
+        <div class="comment">
+            <div class="row">
+                <div class="col-3">
+                    {{ comment.author }} (<small>{{ comment.date | date('d/m/Y à H:i')}}</small>)
+                </div>
+                <div class="col">
+                    {{ comment.content | raw }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 {% endblock %}
