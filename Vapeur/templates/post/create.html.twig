@@ -3,6 +3,7 @@
 {% block body %}
     <h1>Création d'un post</h1>
 
+    {% if app.user %}
     {{ form_start(formPost) }}
 
     {{ form_row(formPost.title, {'attr': {'placeholder': "Titre du poste"}}) }}
@@ -18,4 +19,8 @@
         {% endif %}
     </button>
     {{ form_end(formPost) }}
+    {% else %}
+        <h2>Connectez-vous pour créer un post !</h2>
+        <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>
+    {% endif %}
 {% endblock %}

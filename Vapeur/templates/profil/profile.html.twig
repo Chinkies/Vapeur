@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Profile {% endblock %}
-
 {% block stylesheets %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -10,7 +9,7 @@
 {% endblock %}
 
 {% block body %}
-
+    {% if app.user %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -22,8 +21,8 @@
                             <div class="profile-header-content">
 
                                 <div class="profile-header-info">
-                                    <h4 class="m-t-10 m-b-5">Bobby McFly</h4>
-                                    <br><a href="#" class="btn btn-sm btn-info mb-2">Modifier vos informations</a>
+                                    <h4 class="m-t-10 m-b-5">{{app.user.username}}</h4>
+                                    <br><a href="{{path('profil_edit', {'id': app.user.id})}}" class="btn btn-sm btn-info mb-2">Modifier vos informations</a>
                                 </div>
                             </div>
 
@@ -162,5 +161,9 @@
             </div>
         </div>
     </div>
+    {% else %}
+        <h1>Connectez-vous pour avoir accès à votre profil !</h1>
+        <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>
+    {% endif %}
 
 {% endblock %}
