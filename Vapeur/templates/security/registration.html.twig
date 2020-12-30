@@ -5,7 +5,9 @@
     <div class="m-t-10 m-b-5">
         {{ form_start(form) }}
         {{ form_row(form.username, {'label': 'Nom d\'utilisateur : ','attr': {'placeholder': '-->Nom d\'utilisateur'}}) }}
+        <br>
         {{ form_row(form.password, {'label': 'Mot de passe : ', 'attr': {'placeholder': '-->Mot de passe'}}) }}
+        <br>
         {{ form_row(form.confirm_password, {'label': 'Confirmez votre mot de passe : ', 'attr': {'placeholder': '-->Répétez votre mot de passe'}}) }}
         <br>
         <button type="submit" class="btn btn-success">Inscription</button>
