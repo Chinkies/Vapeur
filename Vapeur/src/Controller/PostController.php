@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\AST\HavingClause;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,25 +21,54 @@ use App\Entity\User;
 class PostController extends AbstractController
 {
     /**
-     * @Route("/post", name="post")
+     * @Route("/", name="home")
      */
-    public function index(PostRepository $repoP, UserRepository $repoU)
+    public function index(PostRepository $repo)
     {
-        $posts = $repoP->findAll();
-        $users = $repoU->findAll();
+        $posts = $repo->findBy(array(), array('date' => 'DESC'));
 
         return $this->render('post/index.html.twig', [
-            'posts' => $posts,
-            'users' => $users
+            'posts' => $posts
         ]);
     }
 
     /**
-     * @Route("/", name="home")
+     * @Route("/research", name="research")
      */
-    public function home()
+    public function research(Request $request, CategoryRepository $repoC, PostRepository $repoP, EntityManagerInterface $manager, UserRepository $repoU)
     {
-        return $this->render('post/home.html.twig');
+        $categories = $repoC->findAll();
+        if ($request->request->all())
+        {
+            if ($request->request->get('_username'))
+            {
+                if($repoU->findBy(array('username' => $request->request->get('_username'))) != null)
+                {
+                    $username = $repoU->findBy(array('username' => $request->request->get('_username')))[0]->getId();
+                }
+                else
+                {
+                    dump($repoU->findBy(array('username' => $request->request->get('_username'))));
+                    $username = PHP_INT_MAX;
+                    dump($username);
+                }
+            }
+            else
+            {
+                $username=null;
+            }
+
+            $posts = $repoP->findPost($request->request->get('_name'), $request->request->get('post', 0), $username);
+            return $this->render('post/research.html.twig', [
+                'posts' => $posts,
+                'categories' => $categories
+            ]);
+        }
+
+        return $this->render('post/research.html.twig', [
+            'posts' => null,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -49,6 +80,7 @@ class PostController extends AbstractController
         if(!$post)
         {
             $post = new Post();
+            $post->setUser($this->container->get('security.token_storage')->getToken()->getUser());
         }
 
         $form = $this->createForm(PostType::class, $post);
@@ -69,14 +101,15 @@ class PostController extends AbstractController
 
         return $this->render('post/create.html.twig', [
             'formPost' => $form->createView(),
-            'mode' => $post->getId()!== null
+            'mode' => $post->getId()!== null,
+            'post' => $post
         ]);
     }
 
     /**
      * @Route("/post/{id}", name="post_show")
      */
-    public function show(Post $post, Request $request, EntityManagerInterface $manager)
+    public function show(Post $post, Request $request, EntityManagerInterface $manager, PostRepository $repo)
     {
         $comment = new Comment();
 

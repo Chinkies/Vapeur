@@ -3,6 +3,9 @@
 {% block title %}Fil d'actualité{% endblock %}
 
 {% block body %}
+
+
+
     <section class="post">
         {% for post in posts %}
         <post>
@@ -11,11 +14,15 @@
                 Ecrit par {{ post.user.username }} le {{ post.date | date('d/m/y')}} à {{ post.date | date('H:i') }} dans la catégorie {{ post.category.title }}
             </div>
             <div class="content">
-                <img src="{{ post.link }}" alt="">
+                <br>
                 {{ post.content | raw}}
+                <br>
+                <p>Lien pour télécharger : <a href="{{ post.link }}">{{ post.link }}</a></p>
+                <br>
                 <a href="{{ path('post_show', {'id': post.id}) }}" class="btn btn-primary">Lire la suite</a>
             </div>
         </post>
+            <br>
             <br>
         {% endfor %}
     </section>

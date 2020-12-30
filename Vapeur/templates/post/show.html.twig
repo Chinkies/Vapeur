@@ -3,17 +3,22 @@
 {% block body %}
     <post>
         <h2>{{ post.title }}</h2>
+        <br>
         <div class="metadata">
             Ecrit le {{ post.date | date('d/m/Y') }} à {{ post.date | date('H:i') }} dans la catégorie {{ post.category.title }}
         </div>
+        <br>
         <div class="content">
-            <img src="{{ post.link }}" alt="">
+            <p>Lien pour télécharger : <a href="{{ post.link }}">{{ post.link }}</a></p>
             {{ post.content | raw }}
         </div>
+        <br>
+        <br>
     </post>
 
     <section id="commentaires">
         <h1>{{ post.comments | length }} commentaires :</h1>
+        <br>
         {% for comment in post.comments %}
         <div class="comment">
             <div class="row">
@@ -24,12 +29,13 @@
                     {{ comment.content | raw }}
                 </div>
             </div>
+            <br>
         </div>
         {% endfor %}
 
         {% if app.user %}
         {{ form_start(commentForm) }}
-        {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
+        {{ form_row(commentForm.content, {'label': 'Commentaire : ', 'attr': {'placeholder': "Votre commentaire"}}) }}
         <button type="submit" class="btn btn-success">Commenter</button>
         {{ form_end(commentForm) }}
         {% else %}

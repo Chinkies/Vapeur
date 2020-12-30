@@ -60,9 +60,15 @@ class Post
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="download")
+     */
+    private $download;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->download = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,6 +174,30 @@ class Post
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getDownload(): Collection
+    {
+        return $this->download;
+    }
+
+    public function addDownload(User $download): self
+    {
+        if (!$this->download->contains($download)) {
+            $this->download[] = $download;
+        }
+
+        return $this;
+    }
+
+    public function removeDownload(User $download): self
+    {
+        $this->download->removeElement($download);
 
         return $this;
     }

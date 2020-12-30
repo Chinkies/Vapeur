@@ -32,127 +32,37 @@
                         <div class="tab-content p-0">
                             <div class="tab-pane fade active show" id="profile-post">
                                 <ul class="timeline">
+                                    {% for post in posts %}
                                     <li>
                                         <div class="timeline-time">
-                                            <span class="date">today</span>
-                                            <span class="time">04:20</span>
+                                            <span class="date">{{ post.date | date('d/m/y')}}</span>
+                                            <span class="time">{{ post.date | date('H:i') }}</span>
                                         </div>
                                         <div class="timeline-icon">
                                             <a href="javascript:;">&nbsp;</a>
                                         </div>
                                         <div class="timeline-body">
                                             <div class="timeline-header">
-                                                <span class="username"><a href="javascript:;">Bobby McFly</a> <small></small></span>
-                                                <span class="pull-right text-muted">100 vues</span>
+                                                <span class="username"><a href="javascript:;">{{ post.user.username }}</a> <small></small></span>
+                                                <span class="pull-right text-muted">100 downloads</span>
                                             </div>
                                             <div class="timeline-content">
                                                 <p class="lead">
-                                                    Un Commentaire peu intéressant.
+                                                    {{ post.content | raw}}
                                                 </p>
+                                                <br>
+                                                <p>Lien pour télécharger : <a href="{{ post.link }}">{{ post.link }}</a></p>
                                             </div>
                                             <div class="timeline-likes">
                                                 <div class="stats-right">
-                                                    <span class="stats-text">21 Commentaires</span>
+                                                    <span class="stats-text">{{ post.comments | length }} Commentaire{% if (post.comments | length) > 1 %}s{% endif %}
+                                                    </span>
                                                 </div>
-                                                <div class="stats">
-                                    <span class="fa-stack fa-fw stats-icon">
-                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
-                                    </span>
-
-                                                    <span class="stats-total">4.3k</span>
-                                                </div>
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-time">
-                                            <span class="date">yesterday</span>
-                                            <span class="time">20:17</span>
-                                        </div>
-                                        <div class="timeline-icon">
-                                            <a href="javascript:;">&nbsp;</a>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <div class="timeline-header">
-                                                <span class="username">Bobby McFly</span>
-                                                <span class="pull-right text-muted">100 Vues</span>
-                                            </div>
-                                            <div class="timeline-content">
-                                                <p class="lead">
-                                                    Un Commentaire peu intéressant.
-                                                </p>
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
+                                                <a href="{{ path('post_show', {'id': post.id}) }}" class="btn btn-primary">Lire la suite</a><a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-primary">Modifier le post</a>
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
-
-                                        <div class="timeline-time">
-                                            <span class="date">24 February 2014</span>
-                                            <span class="time">08:17</span>
-                                        </div>
-
-                                        <div class="timeline-icon">
-                                            <a href="javascript:;">&nbsp;</a>
-                                        </div>
-
-                                        <div class="timeline-body">
-                                            <div class="timeline-header">
-                                                <span class="username">Bobby McFly</span>
-                                                <span class="pull-right text-muted">1,282 Views</span>
-                                            </div>
-                                            <div class="timeline-content">
-                                                <p class="lead">
-                                                    Un Commentaire peu intéressant.
-                                                </p>
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-time">
-                                            <span class="date">10 January 2014</span>
-                                            <span class="time">20:43</span>
-                                        </div>
-                                        <div class="timeline-icon">
-                                            <a href="javascript:;">&nbsp;</a>
-                                        </div>
-                                        <div class="timeline-body">
-                                            <div class="timeline-header">
-                                                <span class="username">Bobby McFly</span>
-                                                <span class="pull-right text-muted">1,021,282 Views</span>
-                                            </div>
-                                            <div class="timeline-content">
-                                                <p class="lead">
-                                                    Un Commentaire peu intéressant.
-                                                </p>
-                                            </div>
-                                            <div class="timeline-footer">
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-icon">
-                                            <a href="javascript:;">&nbsp;</a>
-                                        </div>
-                                        <div class="timeline-body">
-                                            Loading...
-                                        </div>
-                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>

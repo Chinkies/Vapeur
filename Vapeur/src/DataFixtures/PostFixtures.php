@@ -14,36 +14,41 @@ class PostFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $temp = 1;
-        for ($i = 1; $i <= 3; $i++)
-        {
-            $category = new Category();
-            $category->setTitle("Catégorie n°$i");
+        $category = new Category();
+        $category->setTitle("FPS");
+        $manager->persist($category);
 
-            $manager->persist($category);
+        $category = new Category();
+        $category->setTitle("MMO");
+        $manager->persist($category);
 
-            $user = new User();
-            $user->setUsername("User $i")
-                ->setPassword("password$i");
+        $category = new Category();
+        $category->setTitle("RPG");
+        $manager->persist($category);
 
-            $manager->persist($user);
+        $category = new Category();
+        $category->setTitle("FPS");
+        $manager->persist($category);
 
-            for ($j = 1; $j <= mt_rand(1,2); $j++)
-            {
-                $post= new Post();
+        $category = new Category();
+        $category->setTitle("Hack-n-Slash");
+        $manager->persist($category);
 
-                $post->setTitle("Titre du post n°$temp")
-                    ->setContent("Contenu du post n°$temp")
-                    ->setLink("http://placehold.it/350x10$temp")
-                    ->setDate(new \DateTime())
-                    ->setCategory($category)
-                    ->setUser($user);
+        $category = new Category();
+        $category->setTitle("Rythme");
+        $manager->persist($category);
 
-                $manager->persist($post);
+        $category = new Category();
+        $category->setTitle("MOBA");
+        $manager->persist($category);
 
-                $temp++;
-            }
-        }
+        $category = new Category();
+        $category->setTitle("Simulation");
+        $manager->persist($category);
+
+        $category = new Category();
+        $category->setTitle("Autre");
+        $manager->persist($category);
 
         $manager->flush();
     }

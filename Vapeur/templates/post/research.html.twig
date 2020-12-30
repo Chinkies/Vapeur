@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Bienvenue dans le magasin</h1>
+    <form action="{{ path('research') }}" method="post">
+        <div class="form-group">
+            <label for="post_category" class="required">Nom du jeux : </label>
+            <input placeholder="Nom du jeux" name="_name" type="text" class="form-control">
+        </div>
+        <div>
+            <label for="post_category" class="required">Nom de l'utilisateur : </label>
+            <input placeholder="Nom de l'utilisateur" name="_username" type="text" class="form-control">
+        </div>
+        <div>
+            <br>
+            <label for="post_category" class="required">Category : </label>
+            <select id="post_category" name="post[category]">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.title}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <br>
+            <button type="submit" class="btn btn-success">Rechercher</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <section class="post">
+        {% for post in posts %}
+            <post>
+                <h2>{{ post.title }}</h2>
+                <div class="metadata">
+                    Ecrit par {{ post.user.username }} le {{ post.date | date('d/m/y')}} à {{ post.date | date('H:i') }} dans la catégorie {{ post.category.title }}
+                </div>
+                <div class="content">
+                    <br>
+                    {{ post.content | raw}}
+                    <br>
+                    <p>Lien pour télécharger : <a href="{{ post.link }}">{{ post.link }}</a></p>
+                    <br>
+                    <a href="{{ path('post_show', {'id': post.id}) }}" class="btn btn-primary">Lire la suite</a>
+                </div>
+            </post>
+            <br>
+            <br>
+        {% endfor %}
+    </section>
+{% endblock %}

@@ -2,23 +2,31 @@
 
 {% block body %}
     <h1>Création d'un post</h1>
-
+    <br>
     {% if app.user %}
-    {{ form_start(formPost) }}
+        {% if app.user == post.user %}
+            {{ form_start(formPost) }}
 
-    {{ form_row(formPost.title, {'attr': {'placeholder': "Titre du poste"}}) }}
-    {{ form_row(formPost.category) }}
-    {{ form_row(formPost.content, {'attr': {'placeholder': "Contenu du poste"}}) }}
-    {{ form_row(formPost.link, {'attr': {'placeholder': 'Lien'}}) }}
-
-    <button type="submit" class="btn btn-success">
-        {% if mode %}
-            Modifier le post
+            {{ form_row(formPost.title, {'label': 'Titre du jeux : ', 'attr': {'placeholder': "Titre du jeux"}}) }}
+            <br>
+            {{ form_row(formPost.category, {'label': 'Catégorie : '}) }}
+            <br>
+            {{ form_row(formPost.content, {'label': 'Contenu du post : ', 'attr': {'placeholder': "Contenu du post"}}) }}
+            <br>
+            {{ form_row(formPost.link, {'label': 'Lien du jeux : ', 'attr': {'placeholder': 'Lien'}}) }}
+            <br>
+            <button type="submit" class="btn btn-success">
+            {% if mode %}
+                Modifier le post
+            {% else %}
+                Ajouter le post
+            {% endif %}
+            </button>
+            {{ form_end(formPost) }}
         {% else %}
-            Ajouter le post
+            <br>
+            <h2>Vous ne pouvez pas modifier se post</h2>
         {% endif %}
-    </button>
-    {{ form_end(formPost) }}
     {% else %}
         <h2>Connectez-vous pour créer un post !</h2>
         <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>

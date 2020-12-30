@@ -47,9 +47,15 @@ class User implements UserInterface
      */
     private $posts;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Post::class, mappedBy="download")
+     */
+    private $download;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->download = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +121,33 @@ class User implements UserInterface
             if ($post->getUser() === $this) {
                 $post->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getDownload(): Collection
+    {
+        return $this->download;
+    }
+
+    public function addDownload(Post $download): self
+    {
+        if (!$this->download->contains($download)) {
+            $this->download[] = $download;
+            $download->addDownload($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDownload(Post $download): self
+    {
+        if ($this->download->removeElement($download)) {
+            $download->removeDownload($this);
         }
 
         return $this;

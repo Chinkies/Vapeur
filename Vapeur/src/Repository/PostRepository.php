@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\UserRepository;
+use App\Entity\User;
 
 /**
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,52 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    /**
+    * @return Post[] Returns an array of Post objects
     */
+    public function findPost($title, $category, $username)
+    {
 
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($title && $category && $username)
+        {
+            $qb = $this->createQueryBuilder('p')
+                ->andWhere('p.title = :title')
+                ->andWhere('p.category = :category')
+                ->andWhere('p.user = :username')
+                ->setParameter('title', $title)
+                ->setParameter('category', $category['category'])
+                ->setParameter('username', $username);
+
+            $query = $qb->getQuery();
+        }
+        else if ($title && $category)
+        {
+            $qb = $this->createQueryBuilder('p')
+                ->andWhere('p.title = :title')
+                ->andWhere('p.category = :category')
+                ->setParameter('title', $title)
+                ->setParameter('category', $category['category']);
+
+            $query = $qb->getQuery();
+        }
+        else if ($category && $username)
+        {
+            $qb = $this->createQueryBuilder('p')
+                ->andWhere('p.user = :username')
+                ->andWhere('p.category = :category')
+                ->setParameter('username', $username)
+                ->setParameter('category', $category['category']);
+
+            $query = $qb->getQuery();
+        }
+        else if ($category)
+        {
+            $qb = $this->createQueryBuilder('p')
+                ->andWhere('p.category = :category')
+                ->setParameter('category', $category['category']);
+
+            $query = $qb->getQuery();
+        }
+        return $query->execute();
     }
-    */
 }

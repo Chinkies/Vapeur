@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationType;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +16,14 @@ use App\Entity\User;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/profil/{id}", name="profil")
      */
-    public function profil()
+    public function profil(User $user = null, PostRepository $repo)
     {
-        return $this->render('profil/profile.html.twig');
+        $posts = $repo->findBy(array('user' => $user->getId()), array('date' => 'DESC'));
+        return $this->render('profil/profile.html.twig', [
+            'posts' => $posts
+        ]);
     }
 
 
@@ -40,7 +44,9 @@ class ProfilController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('profil', [
+                'id' => $user->getId()
+            ]);
         }
 
         return $this->render('profil/edit.html.twig', [
